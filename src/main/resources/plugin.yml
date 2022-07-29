@@ -18,3 +18,8 @@ commands:
     description: 'Schickt eine private nachricht an einen anderen Spieler.'
     aliases:
       - 'msg'
+  bold:
+    usage: '/bold <message>'
+    description: 'Sendet eine Nachricht dick gedruckt in den globalen Chat.'
+    aliases:
+      - 'b'

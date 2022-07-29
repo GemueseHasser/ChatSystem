@@ -1,6 +1,7 @@
 package de.gemuesehasser.command;
 
 import de.gemuesehasser.ChatSystem;
+import de.gemuesehasser.handler.CommandHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,18 +18,16 @@ public final class Message implements CommandExecutor {
         @NotNull final String label,
         @NotNull final String[] args
     ) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Du musst ein Spieler sein, um diesen Befehl auszuführen.");
-            return true;
-        }
+        final CommandHandler messageHandler = new CommandHandler(
+            sender,
+            1,
+            "Bitte nutze /msg <player> <message>",
+            args
+        );
 
-        final Player player = (Player) sender;
+        if (!messageHandler.isJustified()) return true;
 
-        if (args.length < 1) {
-            player.sendMessage(ChatSystem.getPrefix() + " Bitte nutze /msg <player> <message>");
-            return true;
-        }
-
+        final Player player = messageHandler.getPlayer();
         final Player target = Bukkit.getPlayer(args[0]);
 
         assert target != null;
