@@ -10,8 +10,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+/**
+ * Der {@link NewsTask} stellt eine sich konstant wiederholende Prozedur dar, in der immer und immer wieder die in der
+ * Config hinterlegten Neuigkeiten angezeigt werden.
+ */
+@NotNull
 public final class NewsTask extends BukkitRunnable {
 
+    //<editor-fold desc="implementation">
     @Override
     public void run() {
         // get config
@@ -26,4 +32,6 @@ public final class NewsTask extends BukkitRunnable {
             );
         }
     }
+    //</editor-fold>
+
 }
