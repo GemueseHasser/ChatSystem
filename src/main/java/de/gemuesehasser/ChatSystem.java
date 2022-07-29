@@ -1,14 +1,18 @@
 package de.gemuesehasser;
 
+import de.gemuesehasser.command.Message;
 import de.gemuesehasser.listener.ChatListener;
 import de.gemuesehasser.task.NewsTask;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class ChatSystem extends JavaPlugin {
 
     private static ChatSystem instance;
+    private static String prefix;
 
 
     @Override
@@ -22,6 +26,9 @@ public final class ChatSystem extends JavaPlugin {
         getConfig().options().copyDefaults(true);
         saveConfig();
 
+        // load prefix
+        prefix = getConfig().getString("pluginPrefix");
+
         // initialize news task
         new NewsTask().runTaskTimerAsynchronously(
             this,
@@ -33,6 +40,9 @@ public final class ChatSystem extends JavaPlugin {
         // initialize listener
         final PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new ChatListener(), this);
+
+        // initialize commands
+        Objects.requireNonNull(getCommand("message")).setExecutor(new Message());
 
         getLogger().info("Das Plugin wurde erfolgreich aktiviert!");
     }
@@ -46,5 +56,9 @@ public final class ChatSystem extends JavaPlugin {
 
     public static ChatSystem getInstance() {
         return instance;
+    }
+
+    public static String getPrefix() {
+        return prefix;
     }
 }

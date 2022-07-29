@@ -1,3 +1,4 @@
+pluginPrefix: '&7[&6ChatSystem&7]&f'
 news: 'Neuigkeiten dieses Servers :)'
 newsPeriodMinutes: 5
 blacklist:
