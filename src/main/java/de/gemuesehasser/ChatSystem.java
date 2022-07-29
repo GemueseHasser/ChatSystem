@@ -4,6 +4,7 @@ import de.gemuesehasser.command.Message;
 import de.gemuesehasser.listener.ChatListener;
 import de.gemuesehasser.task.NewsTask;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,7 +28,10 @@ public final class ChatSystem extends JavaPlugin {
         saveConfig();
 
         // load prefix
-        prefix = getConfig().getString("pluginPrefix");
+        prefix = ChatColor.translateAlternateColorCodes(
+            '&',
+            Objects.requireNonNull(getConfig().getString("pluginPrefix"))
+        );
 
         // initialize news task
         new NewsTask().runTaskTimerAsynchronously(
